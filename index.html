@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="middleware-url" content="http://localhost:3000">
+    <title>Cluster de IA - CPIFP Pirámide | API Educativa</title>
+    <!-- CDN de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#ff7300',
+                            orangeDark: '#d66100',
+                            navy: '#0B2545',
+                            dark: '#0F172A',
+                            light: '#FFFBF7',
+                            slate: '#F1F5F9'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-brand-light text-slate-800 font-sans antialiased">
+
+    <!-- Navegación -->
+    <nav class="sticky top-0 z-50 bg-brand-navy/95 backdrop-blur-md text-white border-b border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div
+                    class="w-10 h-10 bg-brand-orange text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-md">
+                    Δ
+                </div>
+                <div>
+                    <span class="font-bold text-lg leading-none block">CPIFP PIRÁMIDE</span>
+                    <span class="text-xs text-brand-orange font-mono">Proxy IA / Ollama API</span>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#caracteristicas" class="hover:text-brand-orange transition-colors">Características</a>
+                <a href="#arquitectura" class="hover:text-brand-orange transition-colors">Arquitectura</a>
+                <a href="#endpoints" class="hover:text-brand-orange transition-colors">Endpoints & API</a>
+                <a href="#solicitud" class="hover:text-brand-orange transition-colors">Solicitar Acceso</a>
+            </div>
+            <div>
+                <a href="#solicitud"
+                    class="bg-brand-orange hover:bg-brand-orangeDark text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-md inline-flex items-center gap-2">
+                    <span>Solicitar API Key</span>
+                    <i data-lucide="key" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-brand-navy text-white overflow-hidden py-20 lg:py-24">
+        <div
+            class="absolute inset-0 opacity-10 bg-[radial-gradient(#ff7300_1px,transparent_1px)] [background-size:16px_16px]">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange text-xs font-semibold mb-6 border border-brand-orange/20">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Backend Proxy + Ollama (modelo IA)</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+                        Cluster de IA Educativo del <span class="text-brand-orange">CPIFP Pirámide</span>
+                    </h1>
+                    <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                        Acceso de alto rendimiento a modelos de lenguaje locales ejecutados sobre Ollama. Diseñado para
+                        que alumnado, profesorado y desarrolladores integren IA en sus proyectos de software con
+                        autenticación segura y seguimiento pedagógico.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#solicitud"
+                            class="bg-brand-orange hover:bg-brand-orangeDark text-white font-bold text-center px-6 py-3.5 rounded-lg transition-all shadow-lg text-base">
+                            Solicitar API Key
+                        </a>
+                        <a href="#endpoints"
+                            class="bg-slate-800 hover:bg-slate-700 text-white font-medium text-center px-6 py-3.5 rounded-lg border border-slate-600 transition-all text-base flex items-center justify-center gap-2">
+                            <span>Ver Endpoints API</span>
+                            <i data-lucide="code" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Visual estilo Terminal Interactivable -->
+                <div
+                    class="bg-brand-dark border border-slate-700 rounded-xl shadow-2xl p-6 font-mono text-xs sm:text-sm text-slate-300 relative">
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-700">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-slate-400 font-sans text-xs">POST /api/chat</span>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-purple-400">curl -X POST <span
+                                class="text-slate-200">https://api-ia.cpifppiramide.es/api/chat</span> \</p>
+                        <p class="pl-4 text-blue-400">-H <span class="text-amber-200">"X-API-Key:
+                                iam_3f8a2c1d9b4e..."</span> \</p>
+                        <p class="pl-4 text-blue-400">-H <span class="text-amber-200">"Content-Type:
+                                application/json"</span> \</p>
+                        <p class="pl-4 text-blue-400">-d <span class="text-emerald-300">'{"prompt": "¿Qué es un Docker
+                                Container?", "model": "modelo_ia"}'</span></p>
+
+                        <div class="bg-slate-900/90 p-3 rounded border border-slate-800 text-slate-300 mt-4">
+                            <p class="text-slate-500">// Respuesta 200 OK (4231ms)</p>
+                            <p class="text-purple-300">{</p>
+                            <p class="pl-4"><span class="text-brand-orange">"success"</span>: <span
+                                    class="text-emerald-400">true</span>,</p>
+                            <p class="pl-4"><span class="text-brand-orange">"data"</span>: {</p>
+                            <p class="pl-8"><span class="text-cyan-400">"response"</span>: <span
+                                    class="text-amber-100">"Un contenedor es un paquete ligero..."</span>,</p>
+                            <p class="pl-8"><span class="text-cyan-400">"model"</span>: <span
+                                    class="text-emerald-300">"modelo_ia"</span>,</p>
+                            <p class="pl-8"><span class="text-cyan-400">"durationMs"</span>: <span
+                                    class="text-purple-400">4231</span></p>
+                            <p class="pl-4">}</p>
+                            <p class="text-purple-300">}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características del Middleware -->
+    <section id="caracteristicas" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-brand-orange mb-2">Seguridad y Rendimiento
+                </h2>
+                <p class="text-3xl font-extrabold text-brand-navy sm:text-4xl">
+                    Infraestructura Proxy Backend
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-brand-slate p-8 rounded-xl border border-slate-200 hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-brand-navy text-brand-orange rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="key-round" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">API Keys Nominativas</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Acceso protegido mediante tokens con formato <code
+                            class="bg-slate-200 px-1 py-0.5 rounded text-xs font-mono">iam_...</code> con fecha de
+                        expiración configurada y hashing seguro SHA-256 en base de datos.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-brand-slate p-8 rounded-xl border border-slate-200 hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-brand-navy text-brand-orange rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="gauge" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Control de Cuotas Diarias</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Asignación opcional de Rate Limit diario por usuario. Contador con reinicio automático a
+                        medianoche (UTC) para asegurar el reparto equitativo del cluster.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-brand-slate p-8 rounded-xl border border-slate-200 hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-brand-navy text-brand-orange rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="database" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Auditoría en PostgreSQL</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Toda interacción queda registrada en <code
+                            class="bg-slate-200 px-1 py-0.5 rounded text-xs font-mono">prompt_logs</code> indicando
+                        tiempo de respuesta (ms), modelo utilizado, prompt y respuesta con fines educativos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Arquitectura de Peticiones -->
+    <section id="arquitectura" class="py-20 bg-brand-slate border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-brand-orange mb-2">Flujo de Peticiones</h2>
+                <p class="text-3xl font-extrabold text-brand-navy sm:text-4xl">
+                    ¿Cómo procesa tu aplicación las consultas?
+                </p>
+            </div>
+
+            <!-- Diagrama visual -->
+            <div class="bg-white p-8 rounded-xl border border-slate-300 shadow-sm max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center">
+                    <div class="p-4 bg-brand-light rounded-lg border border-slate-200">
+                        <i data-lucide="laptop" class="w-8 h-8 text-brand-navy mx-auto mb-2"></i>
+                        <h4 class="font-bold text-sm text-brand-navy">1. Aplicación Cliente</h4>
+                        <p class="text-xs text-slate-500 mt-1">Envía petición POST con Header <code
+                                class="bg-slate-100 text-brand-orange px-1">X-API-Key</code></p>
+                    </div>
+
+                    <div class="p-4 bg-brand-navy text-white rounded-lg shadow-md">
+                        <i data-lucide="server" class="w-8 h-8 text-brand-orange mx-auto mb-2"></i>
+                        <h4 class="font-bold text-sm">2. Middleware Node.js</h4>
+                        <p class="text-xs text-slate-300 mt-1">Valida hash SHA-256, expiración, cuota diaria y persiste
+                            logs en PostgreSQL</p>
+                    </div>
+
+                    <div class="p-4 bg-brand-light rounded-lg border border-slate-200">
+                        <i data-lucide="bot" class="w-8 h-8 text-brand-navy mx-auto mb-2"></i>
+                        <h4 class="font-bold text-sm text-brand-navy">3. Motor Ollama</h4>
+                        <p class="text-xs text-slate-500 mt-1">Ejecuta la inferencia LLM con el <code
+                                class="bg-slate-100 text-slate-700 px-1">modelo IA</code> configurado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentación de Endpoints -->
+    <section id="endpoints" class="py-20 bg-brand-navy text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-brand-orange mb-2">Documentación para
+                    Desarrolladores</h2>
+                <h3 class="text-3xl font-extrabold text-white">Endpoints Disponibles</h3>
+            </div>
+
+            <div class="space-y-8 max-w-4xl mx-auto">
+                <!-- Endpoint 1: Chat -->
+                <div class="bg-brand-dark rounded-xl border border-slate-700 p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-green-600 text-white font-bold text-xs px-2.5 py-1 rounded">POST</span>
+                        <span class="font-mono text-lg text-amber-200">/api/chat</span>
+                        <span class="text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded ml-auto">Requiere
+                            X-API-Key</span>
+                    </div>
+                    <p class="text-slate-300 text-sm mb-4">Envía una consulta o instrucción al modelo de lenguaje y
+                        recibe la respuesta procesada.</p>
+
+                    <div
+                        class="bg-slate-900 rounded p-4 font-mono text-xs overflow-x-auto text-slate-300 border border-slate-800">
+                        <pre><code><span class="text-slate-500">// Ejemplo en JavaScript (Fetch API)</span>
+<span class="text-purple-400">const</span> res = <span class="text-purple-400">await</span> fetch(<span class="text-emerald-300">'https://api-ia.cpifppiramide.es/api/chat'</span>, {
+  method: <span class="text-emerald-300">'POST'</span>,
+  headers: {
+    <span class="text-emerald-300">'Content-Type'</span>: <span class="text-emerald-300">'application/json'</span>,
+    <span class="text-emerald-300">'X-API-Key'</span>: <span class="text-emerald-300">'iam_3f8a2c1d9b4e...'</span>
+  },
+  body: JSON.stringify({
+    prompt: <span class="text-emerald-300">'Explica qué es la programación funcional en 3 líneas'</span>,
+    model: <span class="text-emerald-300">'modelo_ia'</span> <span class="text-slate-500">// Opcional (modelo por defecto)</span>
+  })
+});
+
+<span class="text-purple-400">const</span> { success, data } = <span class="text-purple-400">await</span> res.json();
+console.log(data.response);</code></pre>
+                    </div>
+                </div>
+
+                <!-- Endpoint 2: Usage -->
+                <div class="bg-brand-dark rounded-xl border border-slate-700 p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">GET</span>
+                        <span class="font-mono text-lg text-amber-200">/api/chat/usage</span>
+                        <span class="text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded ml-auto">Requiere
+                            X-API-Key</span>
+                    </div>
+                    <p class="text-slate-300 text-sm mb-4">Devuelve las estadísticas de uso, cuota restante y fecha de
+                        caducidad asignadas a la API Key en uso.</p>
+
+                    <div
+                        class="bg-slate-900 rounded p-4 font-mono text-xs overflow-x-auto text-slate-300 border border-slate-800">
+                        <pre><code><span class="text-slate-500">// Respuesta típica de consumo</span>
+{
+  <span class="text-brand-orange">"success"</span>: <span class="text-emerald-400">true</span>,
+  <span class="text-brand-orange">"data"</span>: {
+    <span class="text-cyan-400">"totalRequests"</span>: <span class="text-purple-300">142</span>,
+    <span class="text-cyan-400">"requestsToday"</span>: <span class="text-purple-300">17</span>,
+    <span class="text-cyan-400">"rateLimitPerDay"</span>: <span class="text-purple-300">100</span>,
+    <span class="text-cyan-400">"remainingToday"</span>: <span class="text-purple-300">83</span>,
+    <span class="text-cyan-400">"expiresAt"</span>: <span class="text-emerald-300">"2027-08-05T10:00:00.000Z"</span>
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Endpoint 3: Health Check -->
+                <div class="bg-brand-dark rounded-xl border border-slate-700 p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-slate-600 text-white font-bold text-xs px-2.5 py-1 rounded">GET</span>
+                        <span class="font-mono text-lg text-amber-200">/health</span>
+                        <span class="text-xs bg-green-900/50 text-green-300 px-2 py-1 rounded ml-auto">Público</span>
+                    </div>
+                    <p class="text-slate-300 text-sm">Permite monitorizar el estado de salud del servidor middleware, la
+                        disponibilidad de la base de datos PostgreSQL y la conexión con Ollama.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Solicitud -->
+    <section id="solicitud" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-brand-navy">Solicitud de Acceso y API Key</h2>
+                <p class="text-slate-600 mt-2">Los administradores del centro darán de alta tu usuario en la base de
+                    datos y generarán la API Key nominativa para tu proyecto.</p>
+            </div>
+
+            <form id="access-request-form"
+                class="bg-brand-light p-8 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Nombre completo /
+                            Solicitante</label>
+                        <input name="name" type="text" required maxlength="255" placeholder="Ej. María García"
+                            class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Correo Electrónico</label>
+                        <input name="email" type="email" required maxlength="255" placeholder="ejemplo@educa.aragon.es"
+                            class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Centro Educativo / Empresa /
+                            Entidad</label>
+                        <input name="organization" type="text" required maxlength="255"
+                            placeholder="Ej. CPIFP Pirámide / IES X"
+                            class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Estimación de Peticiones
+                            Diarias</label>
+                        <select name="dailyRequestEstimate"
+                            class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:outline-none">
+                            <option>Uso bajo (< 50 req/día)</option>
+                            <option>Uso medio (50 - 200 req/día)</option>
+                            <option>Uso intensivo / Prácticas en aula (> 200 req/día)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Exposición del Proyecto y Fines de
+                        Uso</label>
+                    <textarea name="projectDescription" rows="4" required maxlength="5000"
+                        placeholder="Describe detalladamente la aplicación o software que estás desarrollando, lenguaje/framework a utilizar y los objetivos educativos del trabajo..."
+                        class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:outline-none"></textarea>
+                </div>
+
+                <div class="flex items-start gap-3 pt-2">
+                    <input name="consent" type="checkbox" id="consent" required
+                        class="mt-1 rounded text-brand-orange focus:ring-brand-orange">
+                    <label for="consent" class="text-xs text-slate-600">
+                        Entiendo que es un proyecto de aprendizaje sobre IA. Acepto que <strong>las peticiones y
+                            respuestas serán auditadas y registradas en PostgreSQL</strong> (<code
+                            class="text-slate-800 font-mono">prompt_logs</code>) junto con las métricas de rendimiento
+                        del servidor.
+                    </label>
+                </div>
+
+                <p id="form-status" class="hidden text-sm" role="status" aria-live="polite"></p>
+                <button id="submit-request" type="submit"
+                    class="w-full bg-brand-orange hover:bg-brand-orangeDark text-white font-bold py-3.5 rounded-lg transition-all shadow-md">
+                    Enviar Solicitud a los Administradores
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Exención de Responsabilidad Legal -->
+    <section class="bg-amber-50 border-y border-amber-200 py-8 text-amber-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-start gap-4">
+            <i data-lucide="alert-triangle" class="w-6 h-6 text-brand-orange shrink-0 mt-1"></i>
+            <div class="text-xs sm:text-sm leading-relaxed">
+                <span class="font-bold block mb-1">Aviso Legal y Exención de Responsabilidad:</span>
+                El servicio de Cluster de Inteligencia Artificial del CPIFP Pirámide se proporciona de forma
+                experimental y con fines exclusivamente formativos. <strong>El CPIFP Pirámide no se hace responsable de
+                    las respuestas, contenidos u opiniones generadas por el modelo local</strong> a través de las
+                interacciones de los usuarios o de las aplicaciones cliente desarrolladas.
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de página (Footer) -->
+    <footer class="bg-brand-navy text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+            <div>
+                <span class="font-bold text-white text-base block mb-2">CPIFP Pirámide</span>
+                <p class="text-xs text-slate-400">Centro Público Integrado de Formación Profesional de Huesca.</p>
+                <p class="text-xs text-slate-400 mt-2">Carretera Cuarte s/n, 22004 Huesca</p>
+            </div>
+            <div>
+                <span class="font-bold text-white text-base block mb-2">Contacto & Enlaces</span>
+                <ul class="space-y-1 text-xs">
+                    <li><a href="https://www.cpifppiramide.com" target="_blank" class="hover:text-brand-orange">Sitio
+                            Web Oficial</a></li>
+                    <li><a href="mailto:cpifppiramide@educa.aragon.es"
+                            class="hover:text-brand-orange">cpifppiramide@educa.aragon.es</a></li>
+                </ul>
+            </div>
+            <div>
+                <span class="font-bold text-white text-base block mb-2">Middleware Stack</span>
+                <p class="text-xs leading-relaxed font-mono text-slate-400">
+                    Node.js + Express / Ollama Engine / PostgreSQL / Drizzle ORM
+                </p>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
+            © CPIFP Pirámide — Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const form = document.getElementById('access-request-form');
+        const status = document.getElementById('form-status');
+        const submitButton = document.getElementById('submit-request');
+        const middlewareUrl = document.querySelector('meta[name="middleware-url"]').content.replace(/\/$/, '');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            status.className = 'text-sm text-slate-600';
+            status.textContent = 'Enviando solicitud...';
+            submitButton.disabled = true;
+
+            const formData = new FormData(form);
+            const payload = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                organization: formData.get('organization'),
+                dailyRequestEstimate: formData.get('dailyRequestEstimate'),
+                projectDescription: formData.get('projectDescription'),
+                consent: formData.get('consent') === 'on'
+            };
+
+            try {
+                const response = await fetch(`${middlewareUrl}/api/access-requests`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.error || 'No se pudo enviar la solicitud.');
+                }
+
+                status.className = 'text-sm text-green-700';
+                status.textContent = 'Solicitud enviada correctamente. Los administradores revisarán tus datos.';
+                form.reset();
+            } catch (error) {
+                status.className = 'text-sm text-red-700';
+                status.textContent = error instanceof Error
+                    ? error.message
+                    : 'No se pudo conectar con el servidor. Inténtalo de nuevo.';
+            } finally {
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>
